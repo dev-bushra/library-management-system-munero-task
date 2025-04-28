@@ -2,8 +2,12 @@ const express = require("express");
 const app = express();
 const pool = require("../config/db");
 const taskRoutes = require("./routes/taskRoutes");
+const bookRoutes = require("./routes/booksRoutes");
+const loansRoutes = require("./routes/loansRoutes");
+const cors = require("cors"); // Import CORS middleware
 require("dotenv").config();
 
+app.use(cors()); // Allow cross-origin requests
 app.use(express.json());
 
 // Auth routes
@@ -26,6 +30,8 @@ app.get("/test-db", async (req, res) => {
 });
 
 app.use("/api/tasks", taskRoutes);
+app.use("/api/books", bookRoutes);
+app.use('/api/loans', loansRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

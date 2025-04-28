@@ -79,6 +79,8 @@
 
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios'
+import { useRouter } from 'vue-router'
 
 const form = ref({
   name: '',
@@ -87,8 +89,24 @@ const form = ref({
   password: '',
 })
 
-const handleRegister = () => {
-  console.log('Register submitted', form.value)
+const router = useRouter()
+
+const handleRegister = async () => {
+  try {
+    const response = await axios.post('http://localhost:5000/api/auth/register', {
+      name: form.value.name,
+      email: form.value.email,
+      username: form.value.username,
+      password: form.value.password,
+    })
+    
+    // Handle successful registration (redirect to login page)
+    console.log('Registration successful:', response.data)
+    router.push('/login')
+  } catch (error) {
+    console.error('Registration failed:', error.response.data)
+    alert(error.response.data.message || 'Registration failed.')
+  }
 }
 </script>
 

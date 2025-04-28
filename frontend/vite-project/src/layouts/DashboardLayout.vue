@@ -16,6 +16,18 @@
             </v-list-item-icon>
             <v-list-item-title>Tasks</v-list-item-title>
           </v-list-item>
+          <v-list-item to="/books" router exact>
+            <v-list-item-icon>
+              <v-icon>mdi-format-list-bulleted</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Books</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/Loans" router exact>
+            <v-list-item-icon>
+              <v-icon>mdi-format-list-bulleted</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Loans</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-navigation-drawer>
   
