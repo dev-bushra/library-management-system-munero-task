@@ -100,7 +100,6 @@ const handleRegister = async () => {
       password: form.value.password,
     })
     
-    // Handle successful registration (redirect to login page)
     console.log('Registration successful:', response.data)
     router.push('/login')
   } catch (error) {

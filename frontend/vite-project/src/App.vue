@@ -7,4 +7,5 @@
 </template>
 
 <script setup>
+import '@mdi/font/css/materialdesignicons.min.css'
 </script>

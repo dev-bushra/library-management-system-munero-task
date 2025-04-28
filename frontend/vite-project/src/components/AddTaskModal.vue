@@ -23,21 +23,17 @@
 import { ref, defineProps, defineEmits } from 'vue'
 
 const data = () => ({
-  showModal: false,  // HERE inside a data() like you want
+  showModal: false, 
 })
 
-// Define props
 const props = defineProps({
-  modelValue: Boolean,  // This is used for v-model binding
+  modelValue: Boolean,  
 })
 
-// Emit update for v-model
 const emit = defineEmits(['update:modelValue', 'save'])
 
-// Internal state for modal visibility
 const localShowModal = ref(props.modelValue)
 
-// Task data
 const task = ref({
   id: null,
   title: '',
@@ -45,23 +41,15 @@ const task = ref({
   dueDate: '',
 })
 
-// Close modal
 const closeModal = () => {
-  emit('update:modelValue', false)  // Close modal
+  emit('update:modelValue', false)  
 }
 
-// Save task
 const saveTask = () => {
-  emit('save', task.value)  // Emit task data
+  emit('save', task.value) 
 }
-
-// Watch for changes in visibility
-// watch(() => props.modelValue, (newVal) => {
-//   localShowModal.value = newVal
-// })
 
 </script>
 
 <style scoped>
-/* Add custom styles for the modal if needed */
 </style>

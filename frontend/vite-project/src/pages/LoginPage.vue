@@ -2,9 +2,13 @@
   <v-container class="login-page" fluid>
     <v-row justify="center" align="center" class="fill-height">
       <v-col cols="12" sm="8" md="4" lg="3">
-        <v-card class="pa-6" elevation="10" rounded="xl">
+        <v-card class="pa-6" elevation=".1" rounded="xl">
           <v-card-title class="text-h5 font-weight-bold text-center mb-4">
-            Welcome Back 👋
+            <div class="text-center">
+              <span class="text-h1">👋</span>
+              <br />
+              <span class="text-h5">Welcome To TMS</span>
+            </div>
           </v-card-title>
 
           <v-card-subtitle class="text-center mb-6 text-grey-darken-1">
@@ -76,10 +80,9 @@ const handleLogin = async () => {
       password: form.value.password,
     })
     console.log(response.data)
-    // localStorage.setItem('authToken', response.data.token) // Store JWT token
     localStorage.setItem('token', response.data.token);
 
-    router.push('/tasks') // Redirect after login
+    router.push('/tasks') 
   } catch (error) {
     console.error('Login failed:', error)
     alert('Login failed. Please check your credentials.')

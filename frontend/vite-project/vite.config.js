@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'     // 👈 THIS was missing
+import { defineConfig } from 'vite'   
 import vue from '@vitejs/plugin-vue'
 import vuetify from 'vite-plugin-vuetify'
-import { fileURLToPath, URL } from 'node:url'  // 👈 needed for alias
+import { fileURLToPath, URL } from 'node:url' 
 
 export default defineConfig({
   plugins: [
@@ -10,7 +10,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),  // 👈 magic line to use @ for src/
+      '@': fileURLToPath(new URL('./src', import.meta.url)), 
     },
   },
 })

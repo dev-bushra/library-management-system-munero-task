@@ -5,7 +5,6 @@ const pool = require("../../config/db");
 // const JWT_SECRET = "bushratv";
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// Register
 exports.register = async (req, res) => {
   const { name, email, username, password } = req.body;
 
@@ -32,7 +31,6 @@ exports.register = async (req, res) => {
   }
 };
 
-// Login
 exports.login = async (req, res) => {
   const { username, password } = req.body;
 

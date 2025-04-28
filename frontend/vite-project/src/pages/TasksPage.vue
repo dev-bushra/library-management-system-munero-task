@@ -1,32 +1,26 @@
 <template>
   <DashboardLayout>
-    <div class="d-flex justify-space-between align-center mb-6">
-      <h1 class="text-h5 font-weight-bold">Your Tasks 📋</h1>
-      <v-btn color="primary" rounded="xl" @click="openModal">
-        <v-icon start>mdi-plus</v-icon>
-        New Task
-      </v-btn>
-    </div>
 
-    <v-card elevation="4" rounded="xl">
-      <v-data-table
-        :headers="headers"
-        :items="tasks"
-        class="elevation-1"
-        density="comfortable"
-      >
+    <v-card elevation="0" rounded="md" class="pa-5">
+      <div class="d-flex justify-space-between align-center mb-6">
+        <h1 class="text-h5 font-weight-bold">📋 Your Tasks</h1>
+        <v-btn color="primary" rounded="md" class="elevation-0" @click="openModal">
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </div>
+      <v-data-table :headers="headers" :items="tasks" class="elevation-0" density="comfortable">
         <template #item.actions="{ item }">
-          <v-btn icon size="small" color="success" @click="markTaskAsCompleted(item.id)">
-  <v-icon>mdi-check</v-icon>
-</v-btn>
-          <v-btn icon size="small" color="error" @click="deleteTask(item.id)">
+          <v-btn icon size="small" color="success" class="ma-1" @click="markTaskAsCompleted(item.id)"
+            v-if="item.status !== 'completed'">
+            <v-icon>mdi-check</v-icon>
+          </v-btn>
+          <v-btn icon size="small" color="error" class="ma-1" @click="deleteTask(item.id)">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
         </template>
       </v-data-table>
     </v-card>
 
-    <!-- ADD TASK MODAL INSIDE THIS FILE -->
     <v-dialog v-model="showModal" max-width="500px">
       <v-card>
         <v-card-title>
@@ -54,17 +48,14 @@ import axios from 'axios'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 import AddTaskModal from '@/components/AddTaskModal.vue'
 
-// Modal control
 const showModal = ref(false)
 
-// Task form inside modal
 const newTask = ref({
   title: '',
   status: '',
   dueDate: '',
 })
 
-// Tasks list and table headers
 const tasks = ref([])
 const headers = [
   { text: '#', value: 'id' },
@@ -74,7 +65,6 @@ const headers = [
   { text: 'Actions', value: 'actions', sortable: false },
 ]
 
-// Mark task complated
 const markTaskAsCompleted = async (taskId) => {
   try {
     const token = localStorage.getItem('token')
@@ -83,7 +73,6 @@ const markTaskAsCompleted = async (taskId) => {
         Authorization: `Bearer ${token}`,
       }
     })
-    // Update the task status locally after marking as completed
     const task = tasks.value.find(task => task.id === taskId)
     if (task) {
       task.status = 'completed'
@@ -93,7 +82,6 @@ const markTaskAsCompleted = async (taskId) => {
   }
 }
 
-// Fetch all tasks
 const fetchTasks = async () => {
   try {
     const token = localStorage.getItem('token')
@@ -114,18 +102,15 @@ const fetchTasks = async () => {
   }
 }
 
-// Open modal
 const openModal = () => {
   showModal.value = true
   resetForm()
 }
 
-// Close modal
 const closeModal = () => {
   showModal.value = false
 }
 
-// Reset modal form fields
 const resetForm = () => {
   newTask.value = {
     title: '',
@@ -134,25 +119,23 @@ const resetForm = () => {
   }
 }
 
-// Submit new task to backend
 const submitTask = async () => {
   try {
     const token = localStorage.getItem('token')
     console.log('token:', token)
-const response = await axios.post('http://localhost:5000/api/tasks', {
-  userId: 1,
-  title: newTask.value.title,
-  description: 'description',
-  due_date: newTask.value.dueDate,
-  priority: 'high',
-  status: newTask.value.status,
-}, {
-  headers: {
-  Authorization: `Bearer ${localStorage.getItem('token')}`,
-  'Content-Type': 'application/json'
-}
-})
-    // After adding, update the tasks list
+    const response = await axios.post('http://localhost:5000/api/tasks', {
+      userId: 1,
+      title: newTask.value.title,
+      description: 'description',
+      due_date: newTask.value.dueDate,
+      priority: 'high',
+      status: newTask.value.status,
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
+    })
     tasks.value.push(response.data)
     closeModal()
   } catch (error) {
@@ -160,7 +143,6 @@ const response = await axios.post('http://localhost:5000/api/tasks', {
   }
 }
 
-// Delete task
 const deleteTask = async (taskId) => {
   try {
     const token = localStorage.getItem('token')
@@ -175,10 +157,7 @@ const deleteTask = async (taskId) => {
   }
 }
 
-// Load tasks on page load
 onMounted(fetchTasks)
 </script>
 
-<style scoped>
-/* Custom styles */
-</style>
+<style scoped></style>
